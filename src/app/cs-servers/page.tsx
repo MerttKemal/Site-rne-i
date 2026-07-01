@@ -437,12 +437,16 @@ export default function CsServersHub() {
       {/* Admin Purchase Modal */}
       <AnimatePresence>
         {selectedPackage && (
-          <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/70 backdrop-blur-sm p-0 md:p-4">
+          <div 
+            className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/70 backdrop-blur-sm p-0 md:p-4 cursor-pointer"
+            onClick={() => setSelectedPackage(null)}
+          >
             <motion.div 
               initial={{ opacity: 0, y: 100 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 100 }}
-              className="w-full max-w-lg bg-[color:var(--color-card)] md:rounded-3xl rounded-t-3xl border border-[color:var(--color-border)] overflow-hidden shadow-2xl max-h-[90vh] flex flex-col"
+              className="w-full max-w-lg bg-[color:var(--color-card)] md:rounded-3xl rounded-t-3xl border border-[color:var(--color-border)] overflow-hidden shadow-2xl max-h-[90vh] flex flex-col cursor-default"
+              onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
               <div className="p-6 border-b border-[color:var(--color-border)] flex justify-between items-center bg-[color:var(--color-muted)]/30">

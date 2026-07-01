@@ -545,7 +545,7 @@ export const corporateServices = [
 export const corporateTeam = [
   {
     id: 1,
-    name: "Mert Kemal",
+    name: "Hakan Çelik",
     role: "Kurucu & Kıdemli Sistem Uzmanı",
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop"
   },
@@ -566,7 +566,7 @@ export const corporateTeam = [
 export const corporateTestimonials = [
   {
     id: 1,
-    quote: "M-Menu ekibi sayesinde restoranımızdaki kağıt menü maliyetlerinden tamamen kurtulduk. Müşterilerimizin sipariş hızı ve memnuniyeti %40 arttı.",
+    quote: "Nova Bilişim ekibi sayesinde restoranımızdaki kağıt menü maliyetlerinden tamamen kurtulduk. Müşterilerimizin sipariş hızı ve memnuniyeti %40 arttı.",
     author: "Ahmet Demir",
     company: "Lezzet Sarayı Restoran Zinciri"
   },

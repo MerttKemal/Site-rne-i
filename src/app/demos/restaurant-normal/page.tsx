@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { qrMenuData, Category } from "@/data/mockData";
-import { Search, MapPin, Clock, Phone, Heart, Award } from "lucide-react";
+import { Search, MapPin, Clock, Phone, Heart, Award, Plus, Minus, ShoppingBag, X } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
+import { Button } from "@/components/ui/Button";
 
 const categories: Category[] = ["Tümü", "Yiyecekler", "İçecekler", "Tatlılar", "Nargile"];
 
@@ -12,6 +13,10 @@ export default function RestaurantNormalMenu() {
   const [activeCategory, setActiveCategory] = useState<Category>("Tümü");
   const [searchQuery, setSearchQuery] = useState("");
   const [favorites, setFavorites] = useState<number[]>([]);
+  
+  // Cart State
+  const [cart, setCart] = useState<{product: any, quantity: number}[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   // Filtering
   const filteredItems = qrMenuData.filter((item) => {
@@ -26,6 +31,34 @@ export default function RestaurantNormalMenu() {
       prev.includes(id) ? prev.filter(fId => fId !== id) : [...prev, id]
     );
   };
+
+  // Cart Functions
+  const addToCart = (product: any) => {
+    setCart(prev => {
+      const existing = prev.find(item => item.product.id === product.id);
+      if (existing) {
+        return prev.map(item => item.product.id === product.id ? { ...item, quantity: item.quantity + 1 } : item);
+      }
+      return [...prev, { product, quantity: 1 }];
+    });
+  };
+
+  const removeFromCart = (productId: number) => {
+    setCart(prev => {
+      const existing = prev.find(item => item.product.id === productId);
+      if (existing && existing.quantity > 1) {
+        return prev.map(item => item.product.id === productId ? { ...item, quantity: item.quantity - 1 } : item);
+      }
+      return prev.filter(item => item.product.id !== productId);
+    });
+  };
+
+  const totalCartPrice = cart.reduce((total, item) => {
+    const price = parseInt(item.product.price.replace(" ₺", ""));
+    return total + (price * item.quantity);
+  }, 0);
+  
+  const cartItemCount = cart.reduce((count, item) => count + item.quantity, 0);
 
   return (
     <main className="min-h-screen bg-[color:var(--color-background)] pt-24 pb-32">
@@ -165,12 +198,21 @@ export default function RestaurantNormalMenu() {
                         {item.category}
                       </span>
 
-                      <button
-                        onClick={() => toggleFavorite(item.id)}
-                        className="text-[color:var(--color-muted-foreground)] hover:text-red-500 transition-colors p-1"
-                      >
-                        <Heart className={`w-4 h-4 ${isFav ? "fill-red-500 text-red-500" : ""}`} />
-                      </button>
+                      <div className="flex items-center gap-3">
+                        <button
+                          onClick={() => toggleFavorite(item.id)}
+                          className="text-[color:var(--color-muted-foreground)] hover:text-red-500 transition-colors p-1"
+                        >
+                          <Heart className={`w-4 h-4 ${isFav ? "fill-red-500 text-red-500" : ""}`} />
+                        </button>
+                        <button
+                          onClick={() => addToCart(item)}
+                          className="bg-emerald-500 hover:bg-emerald-600 text-white w-7 h-7 rounded-lg flex items-center justify-center shadow-md hover:scale-105 transition-all cursor-pointer"
+                          title="Sepete Ekle"
+                        >
+                          <Plus className="w-4 h-4" />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </motion.div>
@@ -197,6 +239,100 @@ export default function RestaurantNormalMenu() {
         </div>
 
       </div>
+
+      {/* Floating Cart Button (Mobile/Tablet) */}
+      <AnimatePresence>
+        {cartItemCount > 0 && !isCartOpen && (
+          <motion.div 
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 100, opacity: 0 }}
+            className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 w-full max-w-sm px-4"
+          >
+            <button 
+              onClick={() => setIsCartOpen(true)}
+              className="w-full bg-emerald-500 hover:bg-emerald-600 text-white shadow-[0_8px_30px_rgb(16,185,129,0.3)] rounded-2xl p-4 flex items-center justify-between transition-colors cursor-pointer"
+            >
+              <div className="flex items-center gap-3">
+                <div className="bg-white/20 rounded-full w-8 h-8 flex items-center justify-center font-bold">
+                  {cartItemCount}
+                </div>
+                <span className="font-semibold text-lg">Sepeti Gör</span>
+              </div>
+              <span className="font-bold text-xl">{totalCartPrice} ₺</span>
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Cart Drawer */}
+      <AnimatePresence>
+        {isCartOpen && (
+          <div 
+            className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-sm cursor-pointer"
+            onClick={() => setIsCartOpen(false)}
+          >
+            <motion.div 
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="w-full max-w-md bg-[color:var(--color-background)] h-full flex flex-col shadow-2xl cursor-default"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="p-6 border-b border-[color:var(--color-border)] flex justify-between items-center bg-[color:var(--color-card)]">
+                <div className="flex items-center gap-2">
+                  <ShoppingBag className="w-6 h-6" />
+                  <h2 className="text-2xl font-bold">Sepetim</h2>
+                </div>
+                <button onClick={() => setIsCartOpen(false)} className="p-2 bg-[color:var(--color-muted)] rounded-full hover:bg-[color:var(--color-border)] cursor-pointer">
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              
+              <div className="flex-1 overflow-y-auto p-6 space-y-6">
+                {cart.length === 0 ? (
+                  <div className="h-full flex flex-col items-center justify-center text-[color:var(--color-muted-foreground)]">
+                    <ShoppingBag className="w-16 h-16 mb-4 opacity-20" />
+                    <p className="text-lg">Sepetiniz şu an boş.</p>
+                  </div>
+                ) : (
+                  cart.map(item => (
+                    <div key={item.product.id} className="flex gap-4 items-center bg-[color:var(--color-card)] p-4 rounded-2xl border border-[color:var(--color-border)]">
+                      <img src={item.product.image} className="w-20 h-20 rounded-xl object-cover" alt="" />
+                      <div className="flex-1">
+                        <h4 className="font-bold">{item.product.name}</h4>
+                        <p className="text-emerald-500 font-medium">{item.product.price}</p>
+                      </div>
+                      <div className="flex flex-col items-center gap-2 bg-[color:var(--color-muted)] rounded-xl p-1">
+                        <button onClick={() => addToCart(item.product)} className="p-1 rounded-md hover:bg-[color:var(--color-background)] cursor-pointer">
+                          <Plus className="w-4 h-4" />
+                        </button>
+                        <span className="font-medium text-sm w-6 text-center">{item.quantity}</span>
+                        <button onClick={() => removeFromCart(item.product.id)} className="p-1 rounded-md hover:bg-[color:var(--color-background)] cursor-pointer">
+                          <Minus className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+
+              {cart.length > 0 && (
+                <div className="p-6 bg-[color:var(--color-card)] border-t border-[color:var(--color-border)]">
+                  <div className="flex justify-between items-center mb-6 text-lg font-bold">
+                    <span>Toplam:</span>
+                    <span className="text-2xl text-emerald-500">{totalCartPrice} ₺</span>
+                  </div>
+                  <Button size="lg" className="w-full h-16 text-lg bg-blue-600 hover:bg-blue-700 text-white rounded-2xl shadow-lg border-0">
+                    Siparişi Tamamla
+                  </Button>
+                </div>
+              )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
       <style jsx global>{`
         .hide-scrollbar::-webkit-scrollbar {

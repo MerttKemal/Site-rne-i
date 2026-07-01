@@ -141,11 +141,11 @@ export function Navbar() {
                   <AnimatePresence>
                     {isDropdownOpen && (
                       <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                        transition={{ duration: 0.15 }}
-                        className="absolute top-full left-0 mt-2 w-52 rounded-2xl glass-panel shadow-xl p-2 z-50 border border-[color:var(--color-border)]"
+                        initial={{ opacity: 0, y: 4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 4 }}
+                        transition={{ duration: 0.08, ease: "easeOut" }}
+                        className="absolute top-full left-0 mt-1.5 w-56 rounded-xl bg-white dark:bg-zinc-950 shadow-[0_10px_30px_rgba(0,0,0,0.15)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.5)] p-2.5 z-50 border border-zinc-200 dark:border-zinc-800/80"
                       >
                         {cat.items.map((item) => {
                           const isActive = pathname === item.href;
@@ -153,10 +153,10 @@ export function Navbar() {
                             <Link
                               key={item.href}
                               href={item.href}
-                              className={`block px-4 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-colors ${
+                              className={`block px-4 py-2.5 rounded-lg text-sm font-semibold tracking-tight transition-colors ${
                                 isActive 
-                                  ? "bg-[color:var(--color-foreground)] text-[color:var(--color-background)]" 
-                                  : "text-[color:var(--color-muted-foreground)] hover:bg-[color:var(--color-muted)] hover:text-[color:var(--color-foreground)]"
+                                  ? "bg-blue-600 text-white dark:bg-blue-600" 
+                                  : "text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-blue-500 dark:hover:text-blue-400"
                               }`}
                             >
                               {item.label}

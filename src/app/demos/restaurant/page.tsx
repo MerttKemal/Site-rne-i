@@ -123,13 +123,27 @@ export default function RestaurantDemo() {
                     </span>
                   </div>
                 </div>
-                <div className="p-5 flex flex-col flex-1">
-                  <h3 className="text-lg font-bold mb-2">{item.name}</h3>
-                  <p className="text-[color:var(--color-muted-foreground)] text-sm line-clamp-2">
-                    {item.description}
-                  </p>
-                  <div className="mt-4 flex items-center text-blue-500 text-sm font-medium">
-                    <Info className="w-4 h-4 mr-1" /> Detayları Gör
+                <div className="p-5 flex flex-col flex-1 justify-between">
+                  <div>
+                    <h3 className="text-lg font-bold mb-2">{item.name}</h3>
+                    <p className="text-[color:var(--color-muted-foreground)] text-sm line-clamp-2">
+                      {item.description}
+                    </p>
+                  </div>
+                  <div className="mt-5 pt-4 border-t border-[color:var(--color-border)]/50 flex items-center justify-between">
+                    <span className="flex items-center text-blue-500 text-sm font-semibold group-hover:text-blue-600 transition-colors">
+                      <Info className="w-4 h-4 mr-1" /> Detaylar
+                    </span>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        addToCart(item);
+                      }}
+                      className="bg-emerald-500 hover:bg-emerald-600 text-white px-3.5 py-1.5 rounded-xl text-xs font-bold shadow-md hover:shadow-lg hover:shadow-emerald-500/25 transition-all flex items-center gap-1 cursor-pointer"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      Ekle
+                    </button>
                   </div>
                 </div>
               </motion.div>
@@ -177,12 +191,16 @@ export default function RestaurantDemo() {
       {/* Product Detail Modal */}
       <AnimatePresence>
         {selectedProduct && (
-          <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/60 backdrop-blur-sm p-0 md:p-4">
+          <div 
+            className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/60 backdrop-blur-sm p-0 md:p-4 cursor-pointer"
+            onClick={() => setSelectedProduct(null)}
+          >
             <motion.div 
               initial={{ opacity: 0, y: 100 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 100 }}
-              className="w-full max-w-xl bg-[color:var(--color-card)] md:rounded-3xl rounded-t-3xl overflow-hidden shadow-2xl max-h-[90vh] flex flex-col"
+              className="w-full max-w-xl bg-[color:var(--color-card)] md:rounded-3xl rounded-t-3xl overflow-hidden shadow-2xl max-h-[90vh] flex flex-col cursor-default"
+              onClick={(e) => e.stopPropagation()}
             >
               <div className="relative h-64 sm:h-80 w-full flex-shrink-0">
                 <img src={selectedProduct.image} alt={selectedProduct.name} className="w-full h-full object-cover" />
@@ -217,13 +235,17 @@ export default function RestaurantDemo() {
       {/* Cart Drawer */}
       <AnimatePresence>
         {isCartOpen && (
-          <div className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-sm">
+          <div 
+            className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-sm cursor-pointer"
+            onClick={() => setIsCartOpen(false)}
+          >
             <motion.div 
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="w-full max-w-md bg-[color:var(--color-background)] h-full flex flex-col shadow-2xl"
+              className="w-full max-w-md bg-[color:var(--color-background)] h-full flex flex-col shadow-2xl cursor-default"
+              onClick={(e) => e.stopPropagation()}
             >
               <div className="p-6 border-b border-[color:var(--color-border)] flex justify-between items-center bg-[color:var(--color-card)]">
                 <div className="flex items-center gap-2">
