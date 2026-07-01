@@ -192,7 +192,7 @@ export function Navbar() {
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.25 }}
-                className="absolute top-[calc(100%+0.75rem)] left-0 right-0 glass-panel rounded-3xl p-5 md:hidden border border-[color:var(--color-border)] shadow-2xl flex flex-col gap-4 z-40 overflow-hidden"
+                className="absolute top-[calc(100%+0.75rem)] left-0 right-0 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800/80 rounded-3xl p-5 md:hidden shadow-[0_15px_40px_rgba(0,0,0,0.15)] dark:shadow-[0_15px_40px_rgba(0,0,0,0.5)] flex flex-col gap-4 z-40 overflow-hidden"
               >
                 {/* Home link */}
                 <Link 
