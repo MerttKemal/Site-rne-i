@@ -196,3 +196,162 @@ export const qrMenuData = [
     image: "/ice_citrus_hookah.png"
   }
 ];
+
+export const csServersData = [
+  {
+    id: 1,
+    name: "Pro GaminG # [ Jailbreak ] [1000 FPS]",
+    ip: "95.173.173.10",
+    players: "28/32",
+    map: "jail_buyukisyan_v1",
+    mode: "Jailbreak",
+    status: "online",
+    mapImage: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop"
+  },
+  {
+    id: 2,
+    name: "Pro GaminG # [ Dust2 / PRO ] [1000 FPS]",
+    ip: "95.173.173.11",
+    players: "18/32",
+    map: "de_dust2",
+    mode: "Pro / Public",
+    status: "online",
+    mapImage: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=600&auto=format&fit=crop"
+  },
+  {
+    id: 3,
+    name: "Pro GaminG # [ Deathrun & Surf ] [1000 FPS]",
+    ip: "95.173.173.12",
+    players: "12/24",
+    map: "deathrun_temple",
+    mode: "Deathrun / Surf",
+    status: "online",
+    mapImage: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=600&auto=format&fit=crop"
+  },
+  {
+    id: 4,
+    name: "Pro GaminG # [ Gungame ] [128 Tick]",
+    ip: "95.173.173.13",
+    players: "0/32",
+    map: "cs_italy",
+    mode: "Gungame",
+    status: "offline",
+    mapImage: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?q=80&w=600&auto=format&fit=crop"
+  }
+];
+
+export const csAdminPackages = [
+  {
+    id: 1,
+    name: "Slotluk Yetkisi",
+    price: "Ücretsiz",
+    duration: "Süresiz",
+    features: [
+      "İsim Rezervasyonu (Nick Şifreleme)",
+      "Dolu Sunucuya Giriş Önceliği (Slot Yetkisi)",
+      "Yeşil Yazı Yazma (say @)",
+      "Sohbet Alanında Özel 'Slot' Etiketi"
+    ],
+    popular: false,
+    color: "from-blue-500 to-cyan-500"
+  },
+  {
+    id: 2,
+    name: "VIP Adminlik",
+    price: "150 ₺",
+    duration: "Aylık",
+    features: [
+      "Tüm Slotluk Yetkileri",
+      "Kullanıcı Kickleme Yetkisi (amx_kick)",
+      "Kullanıcı Susturma Yetkisi (amx_gag)",
+      "Harita Oylaması Yapma (amx_votemap)",
+      "Her Tur Başı Bedava Ekipman / Armor",
+      "Karaktere Özel Şapka (Cap) / Skin Seçimi"
+    ],
+    popular: true,
+    color: "from-amber-500 to-orange-500"
+  },
+  {
+    id: 3,
+    name: "Premium Adminlik",
+    price: "250 ₺",
+    duration: "Aylık",
+    features: [
+      "Tüm VIP Adminlik Yetkileri",
+      "Kullanıcı Banlama / Kaldırma Yetkisi (amx_ban)",
+      "Gelişmiş Panel Erişimi (amxmodmenu)",
+      "Özel Silah / Noclip Menüsü Yetkileri",
+      "Yönetici Dokunulmazlığı (Immunity)",
+      "Kurucuya Doğrudan Destek Talebi İletme"
+    ],
+    popular: false,
+    color: "from-purple-500 to-pink-500"
+  },
+  {
+    id: 4,
+    name: "Kurucu Ortak (Full Yetki)",
+    price: "500 ₺",
+    duration: "Aylık",
+    features: [
+      "Tüm Adminlik ve Sunucu Yetkileri (rcon hariç)",
+      "Dokunulmazlık (Sınırsız Immunity)",
+      "Sunucu Ayarlarını Değiştirme Yetkisi (amx_cvar)",
+      "Eklenti (Plugin) Talebi Gönderme",
+      "Sunucu Yönetim Whatsapp Grubuna Katılım",
+      "Rapor & Ban Yönetim Paneli Şifresi"
+    ],
+    popular: false,
+    color: "from-emerald-500 to-teal-500"
+  }
+];
+
+export const csServerRules = [
+  {
+    id: 1,
+    title: "Saygı ve Ahlak Kuralları",
+    description: "Sunucularımızda diğer oyunculara karşı hakaret, küfür, argo ve kışkırtıcı dil kullanımı kesinlikle yasaktır."
+  },
+  {
+    id: 2,
+    title: "Hile, Script ve Destekleyici Yazılımlar",
+    description: "Wallhack, Aimbot, Recoil azaltıcı scriptler ve benzeri haksız avantaj sağlayan tüm üçüncü parti yazılımların kullanımı kalıcı ban (ip ban) sebebidir."
+  },
+  {
+    id: 3,
+    title: "Adminlik Yetkilerinin Kötüye Kullanımı",
+    description: "Adminler haksız yere oyuncuları kickleyemez, gaglayamaz veya banlayamaz. Her türlü işlemde kanıt (ekran görüntüsü veya demo) sunulması zorunludur."
+  },
+  {
+    id: 4,
+    title: "Siyaset, Din ve Irk Ayrımcılığı",
+    description: "Sunucu içi sesli ve yazılı kanallarda dini, milli, ırki ve siyasi propaganda yapmak veya tartışma başlatmak süresiz uzaklaştırılma ile cezalandırılır."
+  },
+  {
+    id: 5,
+    title: "Reklam ve Spam Yasakları",
+    description: "Başka sunucuların, sitelerin veya servislerin reklamını yapmak, sohbet ekranını (chat) gereksiz spam veya mikrofonu yüksek sesle meşgul etmek yasaktır."
+  }
+];
+
+export const csServerFaq = [
+  {
+    id: 1,
+    question: "Satın aldığım yetki ne kadar sürede aktif olur?",
+    answer: "Ödeme onaylandıktan sonra yetkiniz genellikle 15-30 dakika içerisinde sunucu yöneticilerimiz tarafından tanımlanır ve aktif hale getirilir."
+  },
+  {
+    id: 2,
+    question: "Ödemeyi hangi yöntemlerle yapabilirim?",
+    answer: "Havale/EFT, FAST, Papara, IBAN transferi ve Kredi Kartı (Güvenli 3D Ödeme) seçenekleriyle ödeme yapabilirsiniz."
+  },
+  {
+    id: 3,
+    question: "Adminlik kurallara uyulmadığında geri alınır mı?",
+    answer: "Evet. Satın alınan adminlikler kurallara uyulmadığı, oyunculara haksızlık yapıldığı veya yetki kötüye kullanıldığı takdirde iade edilmeksizin askıya alınır."
+  },
+  {
+    id: 4,
+    question: "Sunucuda bir hileci gördüğümde ne yapmalıyım?",
+    answer: "Eğer aktif bir admin yoksa, console ekranına record <isim> yazarak demo kaydedebilir veya sitemizdeki iletişim yollarından / Discord sunucumuzdan yöneticilerimize bildirebilirsiniz."
+  }
+];

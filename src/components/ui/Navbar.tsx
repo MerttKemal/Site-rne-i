@@ -9,6 +9,7 @@ import { Logo } from "./Logo";
 const routes = [
   { href: "/", label: "Ana Sayfa" },
   { href: "/demos/restaurant", label: "Dijital Menü" },
+  { href: "/cs-servers", label: "CS 1.6 Sunucuları" },
 ];
 
 export function Navbar() {
