@@ -55,7 +55,7 @@ export function Hero() {
             className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8"
           >
             <Button size="lg" onClick={navigateToRestaurantDemo} className="w-full sm:w-auto">
-              Canlı QR Menü Demosu
+              Dijital Menüyü İncele
             </Button>
             <Button size="lg" variant="outline" onClick={scrollToContact} className="w-full sm:w-auto">
               İletişime Geç

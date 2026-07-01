@@ -8,7 +8,7 @@ import { Logo } from "./Logo";
 
 const routes = [
   { href: "/", label: "Ana Sayfa" },
-  { href: "/demos/restaurant", label: "Restoran Demosu" },
+  { href: "/demos/restaurant", label: "Dijital Menü" },
 ];
 
 export function Navbar() {

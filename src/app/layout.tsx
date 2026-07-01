@@ -6,8 +6,8 @@ import { Navbar } from "@/components/ui/Navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Dual-Purpose Portfolyo & QR Menü",
-  description: "Modern, hızlı ve kusursuz dijital çözümler",
+  title: "Modern Portfolyo & Dijital QR Menü",
+  description: "Hızlı, şık ve kusursuz dijital menü çözümleri",
 };
 
 export default function RootLayout({

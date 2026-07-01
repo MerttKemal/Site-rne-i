@@ -95,16 +95,15 @@ export default function RestaurantDemo() {
         </div>
 
         {/* Product Grid */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           <AnimatePresence mode="popLayout">
             {filteredItems.map((item) => (
               <motion.div
                 key={item.id}
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
+                initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.2 }}
                 className="bg-[color:var(--color-card)] rounded-3xl border border-[color:var(--color-border)] overflow-hidden flex flex-col shadow-sm hover:shadow-xl hover:border-blue-500/30 transition-all duration-300 group cursor-pointer"
                 onClick={() => setSelectedProduct(item)}
               >
@@ -147,7 +146,7 @@ export default function RestaurantDemo() {
               </motion.div>
             )}
           </AnimatePresence>
-        </motion.div>
+        </div>
       </div>
 
       {/* Floating Cart Button (Mobile) */}
