@@ -3,15 +3,40 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Loader2, AlertCircle } from "lucide-react";
 
 export function Contact() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Simulate API call
-    setTimeout(() => setIsSubmitted(true), 1000);
+    setIsSubmitting(true);
+    setErrorMessage("");
+
+    const formData = new FormData(e.currentTarget);
+    formData.append("access_key", "72abe4d8-ecb1-4ef6-bdaf-c5a02d69b7e5");
+    formData.append("subject", "Yeni İletişim Formu Talebi - M-Menu");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setIsSubmitted(true);
+      } else {
+        setErrorMessage(data.message || "Form gönderilirken bir hata oluştu.");
+      }
+    } catch (error) {
+      setErrorMessage("Bağlantı hatası oluştu. Lütfen tekrar deneyin.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -38,16 +63,24 @@ export function Contact() {
               </div>
               <h3 className="text-2xl font-bold mb-2">Talebiniz Alındı!</h3>
               <p className="text-[color:var(--color-muted-foreground)]">
-                En kısa sürede sizinle iletişime geçeceğim.
+                En kısa sürede sizinle iletişime geçeceğim. Teşekkür ederiz.
               </p>
             </motion.div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
+              {errorMessage && (
+                <div className="flex items-center gap-3 bg-red-500/10 border border-red-500/30 p-4 rounded-xl text-red-500 text-sm">
+                  <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                  <p>{errorMessage}</p>
+                </div>
+              )}
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Ad Soyad</label>
                   <input 
                     required
+                    name="name"
                     type="text" 
                     className="w-full h-12 px-4 rounded-xl border border-[color:var(--color-border)] bg-transparent focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-[color:var(--color-foreground)]"
                     placeholder="Adınız Soyadınız"
@@ -57,6 +90,7 @@ export function Contact() {
                   <label className="text-sm font-medium">E-posta</label>
                   <input 
                     required
+                    name="email"
                     type="email" 
                     className="w-full h-12 px-4 rounded-xl border border-[color:var(--color-border)] bg-transparent focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-[color:var(--color-foreground)]"
                     placeholder="ornek@isletme.com"
@@ -66,6 +100,7 @@ export function Contact() {
                   <label className="text-sm font-medium">Telefon Numarası</label>
                   <input 
                     required
+                    name="phone"
                     type="tel" 
                     className="w-full h-12 px-4 rounded-xl border border-[color:var(--color-border)] bg-transparent focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-[color:var(--color-foreground)]"
                     placeholder="0555 555 55 55"
@@ -74,6 +109,7 @@ export function Contact() {
                 <div className="space-y-2">
                   <label className="text-sm font-medium">İşletme Adı</label>
                   <input 
+                    name="company"
                     type="text" 
                     className="w-full h-12 px-4 rounded-xl border border-[color:var(--color-border)] bg-transparent focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-[color:var(--color-foreground)]"
                     placeholder="Kafe / Restoran Adı"
@@ -84,12 +120,20 @@ export function Contact() {
                 <label className="text-sm font-medium">Mesajınız</label>
                 <textarea 
                   required
+                  name="message"
                   className="w-full h-32 p-4 rounded-xl border border-[color:var(--color-border)] bg-transparent focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all resize-none text-[color:var(--color-foreground)]"
                   placeholder="İhtiyaçlarınızdan bahsedin..."
                 />
               </div>
-              <Button type="submit" size="lg" className="w-full text-lg h-14">
-                Teklif İste
+              <Button type="submit" size="lg" disabled={isSubmitting} className="w-full text-lg h-14 select-none">
+                {isSubmitting ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Gönderiliyor...
+                  </span>
+                ) : (
+                  "Teklif İste"
+                )}
               </Button>
             </form>
           )}
