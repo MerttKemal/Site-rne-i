@@ -355,3 +355,231 @@ export const csServerFaq = [
     answer: "Eğer aktif bir admin yoksa, console ekranına record <isim> yazarak demo kaydedebilir veya sitemizdeki iletişim yollarından / Discord sunucumuzdan yöneticilerimize bildirebilirsiniz."
   }
 ];
+
+export const mcServersData = [
+  {
+    id: 1,
+    name: "CraftTR # [ Survival & Towny ] [1.20.4]",
+    ip: "play.crafttr.net",
+    version: "1.20.4 (Java & Bedrock)",
+    players: "148/250",
+    mode: "Survival & Towny",
+    status: "online",
+    mapImage: "https://images.unsplash.com/photo-1605899435973-ca2d1a8861cf?q=80&w=600&auto=format&fit=crop"
+  },
+  {
+    id: 2,
+    name: "CraftTR # [ Skyblock ] [Sezon 4]",
+    ip: "sky.crafttr.net",
+    version: "1.16.5 - 1.20.4",
+    players: "72/150",
+    mode: "OP Skyblock",
+    status: "online",
+    mapImage: "https://images.unsplash.com/photo-1607988795691-3d0147b43231?q=80&w=600&auto=format&fit=crop"
+  },
+  {
+    id: 3,
+    name: "CraftTR # [ Factions & Clan Wars ]",
+    ip: "fact.crafttr.net",
+    version: "1.8.9 - 1.20.4",
+    players: "0/100",
+    mode: "Factions",
+    status: "offline",
+    mapImage: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600&auto=format&fit=crop"
+  }
+];
+
+export const mcVipPackages = [
+  {
+    id: 1,
+    name: "VIP",
+    price: "100 ₺",
+    duration: "Aylık",
+    features: [
+      "Özel [VIP] Tagı ve Sohbet Rengi",
+      "Sadece VIP'lere Özel Başlangıç Kiti (/kit vip)",
+      "Uçma Yetkisi (/fly) (Sadece lobide ve kendi arsanızda)",
+      "Dolu Sunucuya Giriş Önceliği",
+      "Sanal Sandık Erişimi (/chest 1)"
+    ],
+    popular: false,
+    color: "from-blue-500 to-indigo-500"
+  },
+  {
+    id: 2,
+    name: "VIP+",
+    price: "180 ₺",
+    duration: "Aylık",
+    features: [
+      "Tüm VIP Özellikleri",
+      "Gelişmiş Başlangıç Kiti (/kit vip+)",
+      "Uçma Yetkisi (/fly) (Tüm dünyalarda, savaş dışı)",
+      "Sohbette Kalın Yazı Yazma",
+      "Sanal Sandık Erişimi (/chest 2)",
+      "Kafanızı Blok Yapma Yetkisi (/hat)"
+    ],
+    popular: false,
+    color: "from-purple-500 to-indigo-500"
+  },
+  {
+    id: 3,
+    name: "MVP",
+    price: "300 ₺",
+    duration: "Aylık",
+    features: [
+      "Tüm VIP+ Özellikleri",
+      "Muazzam Başlangıç Kiti (/kit mvp)",
+      "Özel İsim Rengi ve Parçacık Efektleri",
+      "Sanal Sandık Erişimi (/chest 3)",
+      "Süresiz Beslenme Yetkisi (/feed)",
+      "Rastgele Işınlanma Süresi Yok (/rtp)"
+    ],
+    popular: true,
+    color: "from-amber-500 to-orange-500"
+  },
+  {
+    id: 4,
+    name: "MVP+ (Sınırsız)",
+    price: "750 ₺",
+    duration: "Süresiz",
+    features: [
+      "Süresiz Tüm MVP Yetkileri",
+      "En Güçlü Başlangıç Kiti (/kit mvp+)",
+      "Sanal Sandık Erişimi (/chest 5)",
+      "Anında İyileşme Yetkisi (/heal - 5 dk cooldown)",
+      "Özel Binekler ve Kozmetik Evcil Hayvanlar",
+      "Kurucuya Doğrudan WhatsApp Destek Erişimi"
+    ],
+    popular: false,
+    color: "from-emerald-500 to-teal-500"
+  }
+];
+
+export const mcServerRules = [
+  {
+    id: 1,
+    title: "Griefing ve Hırsızlık Yasaktır",
+    description: "Korumalı (Claim) alanlar dışındaki yapılara zarar vermek, oyuncuların eşyalarını çalmak veya tuzak kurmak yasaktır."
+  },
+  {
+    id: 2,
+    title: "Hile, X-Ray ve İstemciler",
+    description: "X-Ray, killaura, fly veya herhangi bir avantaj sağlayan modifikasyon/hacked client kullanımı kalıcı banlanma ile sonuçlanır."
+  },
+  {
+    id: 3,
+    title: "Sohbet Düzeni",
+    description: "Küfür, argo, spam, büyük harfle yazmak (flood) ve oyuncuları aşağılayıcı tavırlar sergilemek yasaktır."
+  },
+  {
+    id: 4,
+    title: "Hata İstismarı (Bug Abuse)",
+    description: "Sunucu eklentilerindeki veya oyunun kendi açıklarını (dupe vb.) kendi çıkarınız için kullanmak kesinlikle yasaktır."
+  }
+];
+
+export const mcServerFaq = [
+  {
+    id: 1,
+    question: "Bedrock (Mobil/Konsol) üzerinden nasıl katılırım?",
+    answer: "Sunucu IP'sini girerken port kısmına varsayılan Minecraft Bedrock portu olan 19132 yazarak mobil veya konsoldan sunucumuza katılabilirsiniz."
+  },
+  {
+    id: 2,
+    question: "Korumalı alan (Claim) nasıl alırım?",
+    answer: "Sunucumuzda claim almak için altın kürek kullanabilirsiniz. Kürekle iki köşeye sağ tıklayarak alanınızı güvene alabilirsiniz."
+  },
+  {
+    id: 3,
+    question: "VIP üyelikler ne kadar sürede aktif olur?",
+    answer: "Ödeme yapıldıktan sonra sistem otomatik olarak VIP rolünüzü 5 dakika içinde oyunda aktif hale getirecektir."
+  }
+];
+
+export const corporateStats = [
+  { label: "Başarılı Proje", value: "250+" },
+  { label: "Mutlu Müşteri", value: "180+" },
+  { label: "Yıllık Deneyim", value: "8+" },
+  { label: "Aktif Altyapı", value: "50+" }
+];
+
+export const corporateServices = [
+  {
+    id: 1,
+    title: "Özel Web Yazılım Geliştirme",
+    description: "İşletmenizin ihtiyaçlarına tam uyum sağlayan, yüksek performanslı ve modern web uygulamaları geliştiriyoruz.",
+    icon: "Code2"
+  },
+  {
+    id: 2,
+    title: "Bulut Altyapı ve Sunucu Yönetimi",
+    description: "Amazon Web Services (AWS), Google Cloud ve Linux sunucularınızın kurulum, optimizasyon ve güvenlik süreçlerini yönetiyoruz.",
+    icon: "Server"
+  },
+  {
+    id: 3,
+    title: "Konteynerleştirme (Docker & K8s)",
+    description: "Uygulamalarınızı Dockerize ederek bulut mimarisinde kolay ölçeklenebilir ve taşınabilir hale getiriyoruz.",
+    icon: "Container"
+  },
+  {
+    id: 4,
+    title: "UI/UX ve Grafik Tasarım",
+    description: "Kullanıcı dostu, modern ve markanızın kimliğini en iyi yansıtan dijital arayüz tasarımları oluşturuyoruz.",
+    icon: "Layers"
+  },
+  {
+    id: 5,
+    title: "SEO ve Performans Optimizasyonu",
+    description: "Core Web Vitals skorlarınızı yükselterek sitenizin Google aramalarında üst sıralarda yer almasını sağlıyoruz.",
+    icon: "Zap"
+  },
+  {
+    id: 6,
+    title: "Siber Güvenlik Danışmanlığı",
+    description: "Sistemlerinizin güvenlik açıklarını analiz ediyor, firewall ve SSL yapılandırmalarıyla koruma kalkanı oluşturuyoruz.",
+    icon: "ShieldAlert"
+  }
+];
+
+export const corporateTeam = [
+  {
+    id: 1,
+    name: "Mert Kemal",
+    role: "Kurucu & Kıdemli Sistem Uzmanı",
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop"
+  },
+  {
+    id: 2,
+    name: "Can Yılmaz",
+    role: "Kıdemli Full-Stack Geliştirici",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop"
+  },
+  {
+    id: 3,
+    name: "Selin Kaya",
+    role: "UI/UX Tasarım Lideri",
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop"
+  }
+];
+
+export const corporateTestimonials = [
+  {
+    id: 1,
+    quote: "M-Menu ekibi sayesinde restoranımızdaki kağıt menü maliyetlerinden tamamen kurtulduk. Müşterilerimizin sipariş hızı ve memnuniyeti %40 arttı.",
+    author: "Ahmet Demir",
+    company: "Lezzet Sarayı Restoran Zinciri"
+  },
+  {
+    id: 2,
+    quote: "Linux sunucularımızın optimizasyonu sonrası web sitemizin yüklenme süresi 3 saniyeden 0.4 saniyeye düştü. İnanılmaz profesyonel bir ekip.",
+    author: "Elif Şahin",
+    company: "Mega E-Ticaret A.Ş."
+  },
+  {
+    id: 3,
+    quote: "Docker dönüşüm sürecimizi sıfır kesintiyle tamamladılar. Artık yeni sürümleri saniyeler içinde yayına alabiliyoruz. Çok teşekkürler.",
+    author: "Murat Özcan",
+    company: "TeknoSoft Bilişim Hizmetleri"
+  }
+];
