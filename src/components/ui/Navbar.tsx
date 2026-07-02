@@ -6,11 +6,25 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ThemeToggle } from "./ThemeToggle";
 import { Logo } from "./Logo";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { 
+  ChevronDown, 
+  Menu, 
+  X, 
+  Utensils, 
+  LayoutGrid,
+  Gamepad2, 
+  Pickaxe,
+  Building2,
+  Briefcase,
+  Sparkles,
+  ArrowRight
+} from "lucide-react";
 
 interface DropdownItem {
   href: string;
   label: string;
+  description: string;
+  icon: any;
 }
 
 interface Category {
@@ -24,24 +38,54 @@ const categories: Category[] = [
     id: "menus",
     label: "Menü Örnekleri",
     items: [
-      { href: "/demos/restaurant", label: "Dijital QR Menü" },
-      { href: "/demos/restaurant-normal", label: "Klasik Web Menü" },
+      { 
+        href: "/demos/restaurant", 
+        label: "Dijital QR Menü",
+        description: "Modern ve interaktif QR menü deneyimi",
+        icon: Utensils
+      },
+      { 
+        href: "/demos/restaurant-normal", 
+        label: "Klasik Web Menü",
+        description: "Geleneksel web tabanlı menü tasarımı",
+        icon: LayoutGrid
+      },
     ]
   },
   {
     id: "games",
     label: "Oyun Sunucuları",
     items: [
-      { href: "/cs-servers", label: "CS 1.6 Sunucusu" },
-      { href: "/minecraft-servers", label: "Minecraft Sunucusu" },
+      { 
+        href: "/cs-servers", 
+        label: "CS 1.6 Sunucusu",
+        description: "1000 FPS, Jailbreak, Dust2 ve daha fazlası",
+        icon: Gamepad2
+      },
+      { 
+        href: "/minecraft-servers", 
+        label: "Minecraft Sunucusu",
+        description: "Survival, Skyblock ve Factions dünyaları",
+        icon: Pickaxe
+      },
     ]
   },
   {
     id: "corporate",
     label: "Kurumsal Tanıtım",
     items: [
-      { href: "/demos/corporate", label: "Kurumsal Ana Sayfa" },
-      { href: "/demos/corporate-services", label: "Hizmetlerimiz" },
+      { 
+        href: "/demos/corporate", 
+        label: "Kurumsal Ana Sayfa",
+        description: "Profesyonel şirket tanıtım sayfası",
+        icon: Building2
+      },
+      { 
+        href: "/demos/corporate-services", 
+        label: "Hizmetlerimiz",
+        description: "Detaylı hizmet ve çözüm portföyü",
+        icon: Briefcase
+      },
     ]
   }
 ];
@@ -51,7 +95,17 @@ export function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeMobileDropdown, setActiveMobileDropdown] = useState<string | null>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
+
+  // Scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Close dropdown on click outside
   useEffect(() => {
@@ -77,30 +131,44 @@ export function Navbar() {
     setActiveMobileDropdown(activeMobileDropdown === id ? null : id);
   };
 
+  const scrollToContact = () => {
+    setMobileMenuOpen(false);
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 px-4 py-4" ref={navRef}>
+    <header 
+      className={`fixed top-0 left-0 right-0 z-50 px-4 transition-all duration-500 ${
+        isScrolled ? "py-2" : "py-4"
+      }`}
+      ref={navRef}
+    >
       <div className="container mx-auto max-w-5xl">
-        <div className="glass-panel rounded-2xl px-6 py-3 flex items-center justify-between relative">
+        <div className={`rounded-2xl px-5 py-2.5 flex items-center justify-between relative transition-all duration-500 ${
+          isScrolled
+            ? "bg-white/80 dark:bg-black/60 backdrop-blur-2xl border border-white/20 dark:border-white/[0.06] shadow-xl shadow-black/[0.03] dark:shadow-black/30"
+            : "glass-panel"
+        }`}>
           
-          <Link href="/" className="text-xl font-bold tracking-tight">
+          <Link href="/" className="text-xl font-bold tracking-tight flex-shrink-0">
             <Logo showText={true} />
           </Link>
           
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-0.5">
             {/* Home link */}
             <Link 
               href="/"
               className={`relative px-3.5 py-2 rounded-xl text-sm font-semibold transition-colors ${
                 pathname === "/" 
-                  ? "text-[color:var(--color-foreground)]" 
-                  : "text-[color:var(--color-muted-foreground)] hover:text-[color:var(--color-foreground)]"
+                  ? "text-zinc-900 dark:text-white" 
+                  : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 hover:dark:text-white"
               }`}
             >
               {pathname === "/" && (
                 <motion.div
                   layoutId="active-nav-tab"
-                  className="absolute inset-0 bg-[color:var(--color-muted)] rounded-xl z-0"
+                  className="absolute inset-0 bg-zinc-100 dark:bg-zinc-900 rounded-xl z-0"
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 />
               )}
@@ -122,14 +190,14 @@ export function Navbar() {
                   <button
                     className={`flex items-center gap-1 px-3.5 py-2 rounded-xl text-sm font-semibold transition-colors cursor-pointer select-none ${
                       isChildActive 
-                        ? "text-[color:var(--color-foreground)]" 
-                        : "text-[color:var(--color-muted-foreground)] hover:text-[color:var(--color-foreground)]"
+                        ? "text-zinc-900 dark:text-white" 
+                        : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 hover:dark:text-white"
                     }`}
                   >
                     {isChildActive && (
                       <motion.div
                         layoutId="active-nav-tab"
-                        className="absolute inset-0 bg-[color:var(--color-muted)] rounded-xl z-0"
+                        className="absolute inset-0 bg-zinc-100 dark:bg-zinc-900 rounded-xl z-0"
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
                       />
                     )}
@@ -137,29 +205,53 @@ export function Navbar() {
                     <ChevronDown className={`w-3.5 h-3.5 relative z-10 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`} />
                   </button>
 
-                  {/* Dropdown Menu Overlay */}
+                  {/* Mega Dropdown Menu */}
                   <AnimatePresence>
                     {isDropdownOpen && (
                       <motion.div
-                        initial={{ opacity: 0, y: 4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 4 }}
-                        transition={{ duration: 0.08, ease: "easeOut" }}
-                        className="absolute top-full left-0 mt-1.5 w-56 rounded-xl bg-white dark:bg-zinc-950 shadow-[0_10px_30px_rgba(0,0,0,0.15)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.5)] p-2.5 z-50 border border-zinc-200 dark:border-zinc-800/80"
+                        initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                        transition={{ duration: 0.15, ease: "easeOut" }}
+                        className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[320px] rounded-2xl bg-white dark:bg-zinc-950 shadow-[0_20px_50px_rgba(0,0,0,0.12)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-2 z-50 border border-zinc-200/80 dark:border-zinc-800/80"
                       >
+                        {/* Category label */}
+                        <div className="px-3 py-2 mb-1">
+                          <span className="text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">
+                            {cat.label}
+                          </span>
+                        </div>
+                        
                         {cat.items.map((item) => {
                           const isActive = pathname === item.href;
+                          const Icon = item.icon;
                           return (
                             <Link
                               key={item.href}
                               href={item.href}
-                              className={`block px-4 py-2.5 rounded-lg text-sm font-semibold tracking-tight transition-colors ${
+                              className={`flex items-start gap-3 px-3 py-3 rounded-xl text-sm transition-all group ${
                                 isActive 
-                                  ? "bg-blue-600 text-white dark:bg-blue-600" 
-                                  : "text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-blue-500 dark:hover:text-blue-400"
+                                  ? "bg-indigo-500/10 dark:bg-indigo-500/10" 
+                                  : "hover:bg-zinc-100 dark:hover:bg-zinc-900"
                               }`}
                             >
-                              {item.label}
+                              <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors ${
+                                isActive
+                                  ? "bg-indigo-500/20 text-indigo-500"
+                                  : "bg-zinc-100 dark:bg-zinc-900 text-zinc-500 dark:text-zinc-400 group-hover:bg-indigo-500/10 group-hover:text-indigo-600 group-hover:dark:text-indigo-400"
+                              }`}>
+                                <Icon className="w-4.5 h-4.5" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className={`font-semibold tracking-tight ${
+                                  isActive ? "text-indigo-500" : "text-zinc-800 dark:text-zinc-200"
+                                }`}>
+                                  {item.label}
+                                </div>
+                                <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-0.5 leading-relaxed">
+                                  {item.description}
+                                </p>
+                              </div>
                             </Link>
                           );
                         })}
@@ -171,14 +263,25 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* Right Area (Theme Toggle & Hamburger) */}
-          <div className="flex items-center gap-3">
+          {/* Right Area */}
+          <div className="flex items-center gap-2">
             <ThemeToggle inline />
+            
+            {/* CTA Button - Desktop only */}
+            <motion.button
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={scrollToContact}
+              className="hidden lg:flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xs font-bold shadow-md shadow-indigo-500/20 hover:shadow-lg hover:shadow-indigo-500/30 transition-shadow cursor-pointer"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              Teklif Al
+            </motion.button>
             
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-xl bg-[color:var(--color-muted)] border border-[color:var(--color-border)] text-[color:var(--color-foreground)] hover:bg-[color:var(--color-border)] transition-colors cursor-pointer"
+              className="md:hidden p-2 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800/80 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -192,15 +295,15 @@ export function Navbar() {
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.25 }}
-                className="absolute top-[calc(100%+0.75rem)] left-0 right-0 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800/80 rounded-3xl p-5 md:hidden shadow-[0_15px_40px_rgba(0,0,0,0.15)] dark:shadow-[0_15px_40px_rgba(0,0,0,0.5)] flex flex-col gap-4 z-40 overflow-hidden"
+                className="absolute top-[calc(100%+0.75rem)] left-0 right-0 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800/80 rounded-3xl p-5 md:hidden shadow-[0_15px_40px_rgba(0,0,0,0.15)] dark:shadow-[0_15px_40px_rgba(0,0,0,0.5)] flex flex-col gap-3 z-40 overflow-hidden"
               >
                 {/* Home link */}
                 <Link 
                   href="/"
                   className={`px-4 py-3 rounded-xl text-sm font-bold transition-colors ${
                     pathname === "/" 
-                      ? "bg-[color:var(--color-foreground)] text-[color:var(--color-background)]" 
-                      : "text-[color:var(--color-muted-foreground)] hover:bg-[color:var(--color-muted)]"
+                      ? "bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black" 
+                      : "text-zinc-500 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900"
                   }`}
                 >
                   Ana Sayfa
@@ -217,8 +320,8 @@ export function Navbar() {
                         onClick={() => toggleMobileDropdown(cat.id)}
                         className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold text-left cursor-pointer transition-colors ${
                           isChildActive 
-                            ? "bg-[color:var(--color-muted)] text-[color:var(--color-foreground)]" 
-                            : "text-[color:var(--color-muted-foreground)] hover:bg-[color:var(--color-muted)]"
+                            ? "bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-white" 
+                            : "text-zinc-500 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900"
                         }`}
                       >
                         <span>{cat.label}</span>
@@ -233,21 +336,26 @@ export function Navbar() {
                             animate={{ height: "auto", opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
                             transition={{ duration: 0.2 }}
-                            className="overflow-hidden flex flex-col pl-4 mt-1 gap-1"
+                            className="overflow-hidden flex flex-col pl-3 mt-1 gap-1"
                           >
                             {cat.items.map((item) => {
                               const isActive = pathname === item.href;
+                              const Icon = item.icon;
                               return (
                                 <Link
                                   key={item.href}
                                   href={item.href}
-                                  className={`px-4 py-2.5 rounded-lg text-xs font-semibold transition-colors ${
+                                  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-xs transition-colors ${
                                     isActive 
-                                      ? "bg-[color:var(--color-foreground)] text-[color:var(--color-background)]" 
-                                      : "text-[color:var(--color-muted-foreground)] hover:bg-[color:var(--color-muted)]"
+                                      ? "bg-indigo-500/10 text-indigo-400 font-bold" 
+                                      : "text-zinc-500 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 font-semibold"
                                   }`}
                                 >
-                                  {item.label}
+                                  <Icon className="w-4.5 h-4.5 flex-shrink-0" />
+                                  <div>
+                                    <div>{item.label}</div>
+                                    <p className="text-[10px] opacity-60 mt-0.5">{item.description}</p>
+                                  </div>
                                 </Link>
                               );
                             })}
@@ -257,6 +365,18 @@ export function Navbar() {
                     </div>
                   );
                 })}
+
+                {/* Mobile CTA */}
+                <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800/80">
+                  <button
+                    onClick={scrollToContact}
+                    className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm font-bold shadow-md cursor-pointer"
+                  >
+                    <Sparkles className="w-4 h-4" />
+                    Teklif Al
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>

@@ -13,7 +13,7 @@ export function Logo({ className = "w-6 h-6", showText = true }: LogoProps) {
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-600 rounded-xl blur-md opacity-20 group-hover:opacity-60 transition-opacity duration-300" />
         
         {/* Logo Container */}
-        <div className="relative w-9 h-9 flex items-center justify-center rounded-xl bg-black/40 backdrop-blur-md border border-white/10 group-hover:border-blue-500/50 transition-colors duration-300">
+        <div className="relative w-9 h-9 flex items-center justify-center rounded-xl bg-zinc-100 dark:bg-black/40 backdrop-blur-md border border-zinc-200/80 dark:border-white/10 group-hover:border-blue-500/50 transition-colors duration-300">
           <svg 
             className={className} 
             viewBox="0 0 100 100" 
@@ -38,7 +38,7 @@ export function Logo({ className = "w-6 h-6", showText = true }: LogoProps) {
         </div>
       </div>
       {showText && (
-        <span className="font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400 group-hover:from-blue-400 group-hover:to-purple-500 transition-all duration-300">
+        <span className="font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-zinc-900 via-zinc-700 to-zinc-500 dark:from-white dark:via-slate-200 dark:to-slate-400 group-hover:from-blue-500 group-hover:to-purple-500 transition-all duration-300">
           M-Menu
         </span>
       )}

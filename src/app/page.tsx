@@ -1,7 +1,8 @@
 import { Hero } from "@/components/sections/Hero";
 import { Portfolio } from "@/components/sections/Portfolio";
 import { Contact } from "@/components/sections/Contact";
-import { Logo } from "@/components/ui/Logo";
+import { Footer } from "@/components/ui/Footer";
+import { ScrollToTop } from "@/components/ui/ScrollToTop";
 
 export default function Home() {
   return (
@@ -9,13 +10,8 @@ export default function Home() {
       <Hero />
       <Portfolio />
       <Contact />
-      
-      <footer className="py-8 text-[color:var(--color-muted-foreground)] border-t border-[color:var(--color-border)]">
-        <div className="flex flex-col items-center justify-center gap-2">
-          <Logo className="w-5 h-5" showText={true} />
-          <p className="text-sm">© {new Date().getFullYear()} M-Menu. Tüm hakları saklıdır.</p>
-        </div>
-      </footer>
+      <Footer />
+      <ScrollToTop />
     </main>
   );
 }

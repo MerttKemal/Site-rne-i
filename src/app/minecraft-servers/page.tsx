@@ -9,23 +9,27 @@ import {
   mcServerFaq 
 } from "@/data/mockData";
 import { Button } from "@/components/ui/Button";
+import { Footer } from "@/components/ui/Footer";
+import { ScrollToTop } from "@/components/ui/ScrollToTop";
 import { 
   Server, 
   Shield, 
   BookOpen, 
   Copy, 
   Check, 
-  ExternalLink, 
   Users, 
   Layers, 
   CheckCircle2, 
   ChevronDown,
   X,
-  Phone,
   MessageCircle,
   HelpCircle,
   Loader2,
-  AlertCircle
+  AlertCircle,
+  Pickaxe,
+  Crown,
+  Sword,
+  Globe
 } from "lucide-react";
 
 type Tab = "servers" | "vip" | "faq";
@@ -82,13 +86,20 @@ export default function MinecraftServersHub() {
     setOpenFaqId(openFaqId === id ? null : id);
   };
 
+  // Calculate player fill percentage
+  const getPlayerPercentage = (players: string) => {
+    const [current, max] = players.split("/").map(Number);
+    return (current / max) * 100;
+  };
+
   return (
-    <main className="min-h-screen bg-[color:var(--color-background)] pt-24 pb-32">
+    <main className="min-h-screen bg-[color:var(--color-background)] pt-24 pb-0">
       
       {/* Background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[160px]" />
-        <div className="absolute bottom-1/4 right-1/3 w-[450px] h-[450px] bg-emerald-500/5 rounded-full blur-[150px]" />
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-purple-500/[0.06] rounded-full blur-[160px] animate-glow-pulse" />
+        <div className="absolute bottom-1/4 right-1/3 w-[450px] h-[450px] bg-emerald-500/[0.03] rounded-full blur-[150px] animate-glow-pulse" style={{ animationDelay: "2s" }} />
+        <div className="absolute inset-0 grid-background opacity-20" />
       </div>
 
       <div className="container relative z-10 px-4 mx-auto max-w-5xl">
@@ -98,17 +109,48 @@ export default function MinecraftServersHub() {
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 rounded-full border border-purple-500/20 bg-purple-500/5 text-purple-400 text-sm font-medium"
+            className="inline-flex items-center gap-2 px-5 py-2 mb-6 rounded-full border border-purple-500/20 bg-purple-500/5 text-purple-400 text-sm font-medium shimmer-overlay"
           >
+            <Pickaxe className="w-4 h-4" />
             <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
             Minecraft Sunucuları Aktif & Online
           </motion.div>
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
-            CraftTR <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-emerald-500">Network</span>
-          </h1>
-          <p className="text-lg text-[color:var(--color-muted-foreground)] leading-relaxed">
-            Gelişmiş Towny, Survival ve Skyblock dünyalarında arkadaşlarınızla imparatorluğunuzu kurun. VIP ayrıcalıklarıyla oyunu domine edin.
-          </p>
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6"
+          >
+            CraftTR <span className="gradient-text">Network</span>
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-lg text-[color:var(--color-muted-foreground)] leading-relaxed"
+          >
+            Gelişmiş Towny, Survival ve Skyblock dünyalarında arkadaşlarınızla imparatorluğunuzu kurun.
+          </motion.p>
+
+          {/* Quick Stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="flex items-center justify-center gap-6 mt-8"
+          >
+            {[
+              { icon: Globe, label: "3 Dünya", color: "text-purple-400" },
+              { icon: Users, label: "220+ Oyuncu", color: "text-blue-400" },
+              { icon: Crown, label: "VIP Paketleri", color: "text-amber-400" },
+              { icon: Sword, label: "PvP & PvE", color: "text-emerald-400" },
+            ].map((stat) => (
+              <div key={stat.label} className="flex items-center gap-2 text-xs text-[color:var(--color-muted-foreground)]">
+                <stat.icon className={`w-4 h-4 ${stat.color}`} />
+                <span className="font-semibold">{stat.label}</span>
+              </div>
+            ))}
+          </motion.div>
         </div>
 
         {/* Tab Switcher */}
@@ -148,21 +190,24 @@ export default function MinecraftServersHub() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.3 }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-16"
             >
-              {mcServersData.map((server) => (
-                <div 
-                  key={server.id} 
-                  className="bg-[color:var(--color-card)] rounded-3xl border border-[color:var(--color-border)] hover:border-purple-500/30 overflow-hidden flex flex-col shadow-sm hover:shadow-xl hover:shadow-purple-500/5 transition-all duration-300 group"
+              {mcServersData.map((server, index) => (
+                <motion.div
+                  key={server.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="bg-[color:var(--color-card)] rounded-3xl border border-[color:var(--color-border)] hover:border-purple-500/30 overflow-hidden flex flex-col shadow-sm hover:shadow-xl hover:shadow-purple-500/5 transition-all duration-300 group hover-glow"
                 >
                   {/* Image Header */}
                   <div className="relative h-44 w-full overflow-hidden">
                     <img 
                       src={server.mapImage} 
                       alt={server.mode} 
-                      className="w-full h-full object-cover transition-transform duration-750 group-hover:scale-105"
+                      className="w-full h-full object-cover transition-transform duration-750 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
                     
                     {/* Status Tag */}
                     <div className="absolute top-4 left-4">
@@ -210,15 +255,35 @@ export default function MinecraftServersHub() {
                       <h3 className="text-base font-bold mb-3 leading-tight tracking-tight group-hover:text-purple-400 transition-colors">
                         {server.name}
                       </h3>
+
+                      {/* Player Bar */}
+                      <div className="mb-4">
+                        <div className="flex justify-between text-xs mb-1.5">
+                          <span className="text-[color:var(--color-muted-foreground)]">Oyuncu Kapasitesi</span>
+                          <span className="font-bold text-purple-400">{server.players}</span>
+                        </div>
+                        <div className="h-2 rounded-full bg-[color:var(--color-muted)] overflow-hidden">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: `${getPlayerPercentage(server.players)}%` }}
+                            transition={{ duration: 1.2, ease: "easeOut" }}
+                            className={`h-full rounded-full ${
+                              server.status === "online"
+                                ? "bg-gradient-to-r from-purple-500 to-indigo-400"
+                                : "bg-red-500/50"
+                            }`}
+                          />
+                        </div>
+                      </div>
                       
                       {/* IP box */}
-                      <div className="flex items-center justify-between bg-[color:var(--color-muted)] border border-[color:var(--color-border)] p-3 rounded-xl mb-4">
-                        <code className="text-xs font-mono font-bold tracking-wider text-[color:var(--color-foreground)] select-all">
+                      <div className="flex items-center justify-between bg-purple-500/5 border border-purple-500/10 p-3 rounded-xl mb-4">
+                        <code className="text-xs font-mono font-bold tracking-wider text-purple-400 select-all">
                           {server.ip}
                         </code>
                         <button
                           onClick={() => handleCopyIp(server.ip, server.id)}
-                          className="p-1.5 hover:bg-[color:var(--color-background)] rounded-lg text-[color:var(--color-muted-foreground)] hover:text-purple-400 transition-colors cursor-pointer"
+                          className="p-1.5 hover:bg-purple-500/10 rounded-lg text-[color:var(--color-muted-foreground)] hover:text-purple-400 transition-colors cursor-pointer"
                         >
                           {copiedId === server.id ? (
                             <Check className="w-4 h-4 text-emerald-400" />
@@ -232,12 +297,12 @@ export default function MinecraftServersHub() {
                     <Button 
                       onClick={() => handleCopyIp(server.ip, server.id)}
                       variant="outline"
-                      className="w-full text-xs font-semibold h-10 rounded-xl"
+                      className="w-full text-xs font-semibold h-10 rounded-xl hover:border-purple-500/30 hover:bg-purple-500/5"
                     >
                       {copiedId === server.id ? "IP Adresi Kopyalandı!" : "Sunucu Adresini Kopyala"}
                     </Button>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </motion.div>
           )}
@@ -249,14 +314,14 @@ export default function MinecraftServersHub() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.3 }}
-              className="space-y-12"
+              className="space-y-12 pb-16"
             >
               {/* Info Alert */}
-              <div className="bg-gradient-to-r from-purple-500/10 to-emerald-500/5 border border-purple-500/20 rounded-3xl p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="bg-gradient-to-r from-purple-500/10 to-emerald-500/5 border border-purple-500/20 rounded-3xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 shimmer-overlay">
                 <div>
                   <h3 className="text-xl font-bold mb-1">🏰 Sezon Başlangıcı VIP Fırsatları</h3>
                   <p className="text-sm text-[color:var(--color-muted-foreground)]">
-                    Yeni sezona özel tüm VIP üyeliklerde geçerli %15 indirim fırsatını kaçırmayın. Ödemeler anında oyuna yansır.
+                    Yeni sezona özel tüm VIP üyeliklerde geçerli %15 indirim fırsatını kaçırmayın.
                   </p>
                 </div>
                 <Button 
@@ -264,7 +329,7 @@ export default function MinecraftServersHub() {
                     const mvpPackage = mcVipPackages.find(p => p.id === 3) || mcVipPackages[0];
                     setSelectedPackage(mvpPackage);
                   }}
-                  className="bg-purple-600 hover:bg-purple-700 text-white border-0 shadow-lg px-6 flex-shrink-0"
+                  className="bg-purple-600 hover:bg-purple-700 text-white border-0 shadow-lg shadow-purple-500/20 px-6 flex-shrink-0"
                 >
                   Fiyatları İncele
                 </Button>
@@ -272,18 +337,21 @@ export default function MinecraftServersHub() {
 
               {/* VIP Pricing Cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {mcVipPackages.map((pkg) => (
-                  <div
+                {mcVipPackages.map((pkg, index) => (
+                  <motion.div
                     key={pkg.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
                     className={`relative rounded-3xl bg-[color:var(--color-card)] border ${
                       pkg.popular 
-                        ? "border-amber-500/40 shadow-[0_15px_40px_-15px_rgba(245,158,11,0.15)]" 
+                        ? "border-amber-500/40 shadow-[0_15px_40px_-15px_rgba(245,158,11,0.15)] neon-glow-purple" 
                         : "border-[color:var(--color-border)]"
-                    } p-6 flex flex-col justify-between overflow-hidden transition-all duration-300 hover:translate-y-[-4px] hover:shadow-xl`}
+                    } p-6 flex flex-col justify-between overflow-hidden transition-all duration-300 hover:translate-y-[-4px] hover:shadow-xl gradient-border`}
                   >
                     {pkg.popular && (
                       <div className="absolute top-4 right-4">
-                        <span className="bg-amber-500 text-black text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+                        <span className="bg-gradient-to-r from-amber-500 to-orange-500 text-black text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
                           En Çok Satan
                         </span>
                       </div>
@@ -319,13 +387,13 @@ export default function MinecraftServersHub() {
                       variant={pkg.popular ? "default" : "outline"}
                       className={`w-full font-bold h-11 rounded-xl text-xs ${
                         pkg.popular 
-                          ? "bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-black border-0 shadow-md"
+                          ? "bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-black border-0 shadow-md shadow-amber-500/20"
                           : ""
                       }`}
                     >
                       Satın Al / Detay
                     </Button>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </motion.div>
@@ -338,7 +406,7 @@ export default function MinecraftServersHub() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.3 }}
-              className="grid grid-cols-1 md:grid-cols-12 gap-8"
+              className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-16"
             >
               {/* Rules */}
               <div className="md:col-span-6 space-y-6">
@@ -351,9 +419,12 @@ export default function MinecraftServersHub() {
 
                 <div className="space-y-4">
                   {mcServerRules.map((rule, idx) => (
-                    <div 
+                    <motion.div 
                       key={rule.id}
-                      className="bg-[color:var(--color-card)] border border-[color:var(--color-border)] p-5 rounded-2xl flex gap-4"
+                      initial={{ opacity: 0, x: -15 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: idx * 0.1 }}
+                      className="bg-[color:var(--color-card)] border border-[color:var(--color-border)] p-5 rounded-2xl flex gap-4 hover-glow"
                     >
                       <div className="font-bold text-sm text-purple-400 bg-purple-500/10 w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0">
                         {idx + 1}
@@ -364,7 +435,7 @@ export default function MinecraftServersHub() {
                           {rule.description}
                         </p>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </div>
@@ -384,7 +455,7 @@ export default function MinecraftServersHub() {
                     return (
                       <div 
                         key={faq.id}
-                        className="bg-[color:var(--color-card)] border border-[color:var(--color-border)] rounded-2xl overflow-hidden transition-all duration-300"
+                        className="bg-[color:var(--color-card)] border border-[color:var(--color-border)] rounded-2xl overflow-hidden transition-all duration-300 hover-glow"
                       >
                         <button
                           onClick={() => toggleFaq(faq.id)}
@@ -461,7 +532,7 @@ export default function MinecraftServersHub() {
                     </div>
                     <h4 className="text-xl font-bold mb-2">Talebiniz Alındı!</h4>
                     <p className="text-sm text-[color:var(--color-muted-foreground)] mb-6 max-w-xs mx-auto">
-                      VIP talebiniz başarıyla kaydedilmiştir. Ödeme ve aktif edilme adımları için kısa süre içinde mail ve Discord üzerinden iletişime geçilecektir.
+                      VIP talebiniz başarıyla kaydedilmiştir. Ödeme ve aktif edilme adımları için kısa süre içinde iletişime geçilecektir.
                     </p>
                     <Button 
                       onClick={() => {
@@ -480,21 +551,12 @@ export default function MinecraftServersHub() {
                       <p className="text-xs font-semibold text-[color:var(--color-muted-foreground)]">
                         Hızlı VIP Tanımlama ve Ödeme Kanalları:
                       </p>
-                      <div className="grid grid-cols-2 gap-3">
-                        <a 
-                          href="https://wa.me/905555555555" 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="flex items-center justify-center gap-2 p-3 bg-green-500/10 hover:bg-green-500/25 border border-green-500/20 hover:border-green-500/30 rounded-xl text-green-400 font-bold text-xs transition-all text-center"
-                        >
-                          <Phone className="w-4 h-4 flex-shrink-0" />
-                          <span>WhatsApp Destek</span>
-                        </a>
+                      <div>
                         <a 
                           href="https://discord.gg/crafttr" 
                           target="_blank" 
                           rel="noopener noreferrer"
-                          className="flex items-center justify-center gap-2 p-3 bg-indigo-500/10 hover:bg-indigo-500/25 border border-indigo-500/20 hover:border-indigo-500/30 rounded-xl text-indigo-400 font-bold text-xs transition-all text-center"
+                          className="flex items-center justify-center gap-2 p-3 bg-indigo-500/10 hover:bg-indigo-500/25 border border-indigo-500/20 hover:border-indigo-500/30 rounded-xl text-indigo-400 font-bold text-xs transition-all text-center w-full"
                         >
                           <MessageCircle className="w-4 h-4 flex-shrink-0" />
                           <span>Discord Destek</span>
@@ -580,7 +642,7 @@ export default function MinecraftServersHub() {
                       <Button 
                         type="submit" 
                         disabled={isSubmitting} 
-                        className="w-full text-sm font-bold h-12 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white border-0 shadow-md flex items-center justify-center gap-1.5"
+                        className="w-full text-sm font-bold h-12 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white border-0 shadow-md shadow-purple-500/20 flex items-center justify-center gap-1.5"
                       >
                         {isSubmitting ? (
                           <>
@@ -599,6 +661,9 @@ export default function MinecraftServersHub() {
           </div>
         )}
       </AnimatePresence>
+
+      <Footer />
+      <ScrollToTop />
     </main>
   );
 }

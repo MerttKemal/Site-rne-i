@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { qrMenuData, Category } from "@/data/mockData";
-import { Search, MapPin, Clock, Phone, Heart, Award, Plus, Minus, ShoppingBag, X } from "lucide-react";
+import { Search, MapPin, Clock, Heart, Award, Plus, Minus, ShoppingBag, X } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { Button } from "@/components/ui/Button";
 
@@ -95,10 +95,7 @@ export default function RestaurantNormalMenu() {
               <Clock className="w-4 h-4 text-emerald-400" />
               <span>Her gün: 09:00 - 02:00</span>
             </div>
-            <div className="flex items-center gap-1.5">
-              <Phone className="w-4 h-4 text-emerald-400" />
-              <span>+90 (232) 555 4545</span>
-            </div>
+
           </div>
         </div>
       </div>

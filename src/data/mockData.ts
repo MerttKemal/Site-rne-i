@@ -206,7 +206,7 @@ export const csServersData = [
     map: "jail_buyukisyan_v1",
     mode: "Jailbreak",
     status: "online",
-    mapImage: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop"
+    mapImage: "https://images.unsplash.com/photo-1558244661-d248897f7bc4?q=80&w=600&auto=format&fit=crop"
   },
   {
     id: 2,
@@ -216,7 +216,7 @@ export const csServersData = [
     map: "de_dust2",
     mode: "Pro / Public",
     status: "online",
-    mapImage: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=600&auto=format&fit=crop"
+    mapImage: "https://images.unsplash.com/photo-1547234935-80c7145ec969?q=80&w=600&auto=format&fit=crop"
   },
   {
     id: 3,
@@ -226,7 +226,7 @@ export const csServersData = [
     map: "deathrun_temple",
     mode: "Deathrun / Surf",
     status: "online",
-    mapImage: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=600&auto=format&fit=crop"
+    mapImage: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=600&auto=format&fit=crop"
   },
   {
     id: 4,
@@ -236,7 +236,7 @@ export const csServersData = [
     map: "cs_italy",
     mode: "Gungame",
     status: "offline",
-    mapImage: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?q=80&w=600&auto=format&fit=crop"
+    mapImage: "https://images.unsplash.com/photo-1528114039593-4366cc08227d?q=80&w=600&auto=format&fit=crop"
   }
 ];
 
@@ -297,7 +297,7 @@ export const csAdminPackages = [
       "Dokunulmazlık (Sınırsız Immunity)",
       "Sunucu Ayarlarını Değiştirme Yetkisi (amx_cvar)",
       "Eklenti (Plugin) Talebi Gönderme",
-      "Sunucu Yönetim Whatsapp Grubuna Katılım",
+      "Sunucu Yönetim Özel Grubuna Katılım",
       "Rapor & Ban Yönetim Paneli Şifresi"
     ],
     popular: false,
@@ -448,7 +448,7 @@ export const mcVipPackages = [
       "Sanal Sandık Erişimi (/chest 5)",
       "Anında İyileşme Yetkisi (/heal - 5 dk cooldown)",
       "Özel Binekler ve Kozmetik Evcil Hayvanlar",
-      "Kurucuya Doğrudan WhatsApp Destek Erişimi"
+      "Kurucuya Doğrudan Hızlı Destek Erişimi"
     ],
     popular: false,
     color: "from-emerald-500 to-teal-500"
